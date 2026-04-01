@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Situation = require("../models/Situation");
-const { explainRights, analyzeCase, chatWithGemini } = require("../services/llmService");
+const { explainRights, analyzeCase, chatWithGemini, translateDocument } = require("../services/llmService");
 
 // POST /api/ai/explain-rights — Given a situation ID, return LLM-powered explanation
 router.post("/explain-rights", async (req, res, next) => {
@@ -67,6 +67,21 @@ router.post("/chat", async (req, res, next) => {
             error: "AI service temporarily unavailable. Please try again in a moment.",
             details: process.env.NODE_ENV === "development" ? err.message : undefined
         });
+    }
+});
+
+// POST /api/ai/translate-document — Simplify user document using LLM
+router.post("/translate-document", async (req, res, next) => {
+    try {
+        const { documentText, lang } = req.body;
+        if (!documentText) {
+            return res.status(400).json({ error: "Document text is required." });
+        }
+
+        const translation = await translateDocument(documentText, lang || "en");
+        res.json({ translation });
+    } catch (err) {
+        next(err);
     }
 });
 

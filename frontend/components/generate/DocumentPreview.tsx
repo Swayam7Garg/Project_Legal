@@ -135,15 +135,18 @@ export default function DocumentPreview({ fields, templateType, situationTitle, 
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 12 }}>{t('generate.preview_title')}</h3>
+      <h3 style={{ fontSize: 14, fontWeight: 700, color: '#1A1A1A', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#923c22', display: 'inline-block' }} />
+        {t('generate.preview_title')}
+      </h3>
       <div style={{
-        flex: 1, background: 'white', border: '1px solid #e2e8f0', borderRadius: 10,
+        flex: 1, background: '#FDFAF7', border: '1px solid #EAE1DA', borderRadius: 10,
         padding: '20px 24px', fontFamily: 'Courier New, monospace', fontSize: 12,
         lineHeight: 1.8, color: '#1e293b', overflowY: 'auto', whiteSpace: 'pre-wrap',
         minHeight: 400, position: 'relative',
       }}>
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.04, fontSize: 48, fontWeight: 900, color: '#1a56db', pointerEvents: 'none', userSelect: 'none', transform: 'rotate(-35deg)' }}>
-          NyayaSaathi
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.04, fontSize: 48, fontWeight: 900, color: '#923c22', pointerEvents: 'none', userSelect: 'none', transform: 'rotate(-35deg)' }}>
+          NyayaMitra
         </div>
         {text}
       </div>

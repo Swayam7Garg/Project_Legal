@@ -8,43 +8,79 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; color?: strin
   Home, ShoppingBag, Briefcase, Shield, FileText, HeartHandshake, Landmark,
 };
 
+// All category colors now use NyayaMitra earthen palette
 const colorMap: Record<string, { bg: string; text: string; border: string }> = {
-  Housing: { bg: '#eff6ff', text: '#1a56db', border: '#bfdbfe' },
-  'Consumer Rights': { bg: '#f0fdf4', text: '#0e9f6e', border: '#bbf7d0' },
-  Employment: { bg: '#fef3c7', text: '#92400e', border: '#fde68a' },
-  Criminal: { bg: '#fef2f2', text: '#dc2626', border: '#fecaca' },
-  Government: { bg: '#f5f3ff', text: '#6d28d9', border: '#ddd6fe' },
-  Family: { bg: '#fdf2f8', text: '#9d174d', border: '#fbcfe8' },
-  Property: { bg: '#fff7ed', text: '#c2410c', border: '#fed7aa' },
+  Housing:          { bg: '#FAF4EE', text: '#923c22', border: '#EAE1DA' },
+  'Consumer Rights':{ bg: '#E0ECD6', text: '#455B3C', border: '#C6D9BA' },
+  Employment:       { bg: '#FEF9EC', text: '#92400e', border: '#F5E0A0' },
+  Criminal:         { bg: '#FEF2F2', text: '#dc2626', border: '#fecaca' },
+  Government:       { bg: '#F5F3FF', text: '#6d28d9', border: '#ddd6fe' },
+  Family:           { bg: '#FDF2F8', text: '#9d174d', border: '#fbcfe8' },
+  Property:         { bg: '#FFF7ED', text: '#c2410c', border: '#fed7aa' },
 };
 
 export default function SituationCard({ situation }: { situation: Situation }) {
   const { i18n } = useTranslation();
   const lang = i18n.language as 'en' | 'hi';
+  const isHi = lang === 'hi';
+  const hFont = isHi ? 'Noto Sans Devanagari, sans-serif' : 'Inter, sans-serif';
   const Icon = iconMap[situation.icon] || Home;
   const colors = colorMap[situation.category] || colorMap.Housing;
 
   return (
     <Link href={`/situations/${situation.id}/explain`} style={{ textDecoration: 'none' }}>
-      <div className="card" style={{ padding: 24, cursor: 'pointer', height: '100%', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{
+        background: 'white', borderRadius: 16, padding: 22,
+        border: '1px solid #EAE1DA', cursor: 'pointer',
+        height: '100%', display: 'flex', flexDirection: 'column', gap: 14,
+        transition: 'box-shadow 0.2s, transform 0.15s',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+      }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(146,60,34,0.12)';
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 8px rgba(0,0,0,0.03)';
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+        }}
+      >
+        {/* Icon + Category */}
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
-          <div style={{ background: colors.bg, border: `1px solid ${colors.border}`, borderRadius: 10, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div style={{
+            background: colors.bg, border: `1px solid ${colors.border}`,
+            borderRadius: 12, width: 48, height: 48,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+          }}>
             <Icon size={22} color={colors.text} />
           </div>
           <div style={{ flex: 1 }}>
-            <span className="pill" style={{ fontSize: 10, background: colors.bg, color: colors.text, marginBottom: 6 }}>{situation.category}</span>
-            <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', marginTop: 4, lineHeight: 1.3, fontFamily: lang === 'hi' ? 'Noto Sans Devanagari, sans-serif' : 'Inter, sans-serif' }}>
+            <span style={{
+              fontSize: 10, fontWeight: 700, letterSpacing: '0.5px',
+              background: colors.bg, color: colors.text,
+              padding: '3px 10px', borderRadius: 20, display: 'inline-block',
+              marginBottom: 6, textTransform: 'uppercase',
+            }}>
+              {situation.category}
+            </span>
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: '#1A1A1A', marginTop: 2, lineHeight: 1.3, fontFamily: hFont }}>
               {situation.title[lang]}
             </h3>
           </div>
         </div>
-        <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, flex: 1, fontFamily: lang === 'hi' ? 'Noto Sans Devanagari, sans-serif' : 'Inter, sans-serif' }}>
+
+        {/* Description */}
+        <p style={{ fontSize: 13, color: '#6A564A', lineHeight: 1.6, flex: 1, fontFamily: hFont, margin: 0 }}>
           {situation.description[lang]}
         </p>
+
+        {/* Footer row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 12, color: '#94a3b8' }}>{situation.checklist.length} documents needed</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: colors.text, fontSize: 13, fontWeight: 600 }}>
-            View Rights <ChevronRight size={14} />
+          <span style={{ fontSize: 12, color: '#A0A0A0', fontFamily: hFont }}>
+            {isHi ? `${situation.checklist.length} दस्तावेज़ आवश्यक` : `${situation.checklist.length} documents needed`}
+          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: colors.text, fontSize: 13, fontWeight: 700, fontFamily: hFont }}>
+            {isHi ? 'अधिकार देखें' : 'View Rights'} <ChevronRight size={14} />
           </div>
         </div>
       </div>

@@ -191,8 +191,42 @@ const chatWithGemini = async (situation, messages, lang = "en") => {
   }
 };
 
+// ─── Document Translation (simplify legal text) ─────────────────────────────
+const translateDocument = async (documentText, lang = "en") => {
+    const TRANSLATION_PROMPT = `
+    You are NyayaSaathi. Your task is to translate and simplify the provided legal document.
+    
+    CRITICAL RULES:
+    1. Translate the document into very simple language understandable by a 12th-grade student.
+    2. Maintain the core meaning and all critical details of the document.
+    3. If the language is "hi", respond ENTIRELY in Hindi using Devanagari script.
+    4. If the language is "en", respond in simple, plain English.
+    5. Be supportive and clear.
+    6. Return ONLY the simplified text.
+    
+    USER'S DOCUMENT:
+    ${documentText}
+    
+    Language: ${lang}
+    `;
+
+    try {
+        const messages = [
+            new SystemMessage("You are a helpful legal expert who simplifies complex documents."),
+            new HumanMessage(TRANSLATION_PROMPT)
+        ];
+    
+        const response = await model.invoke(messages);
+        return response.content;
+    } catch (error) {
+        console.error("LLM Error (translateDocument):", error);
+        throw error;
+    }
+};
+
 module.exports = {
   explainRights,
   analyzeCase,
   chatWithGemini,
+  translateDocument,
 };

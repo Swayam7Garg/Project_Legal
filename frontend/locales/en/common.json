@@ -131,6 +131,14 @@
     "team_title": "Built For",
     "team_text": "This platform was built as a hackathon project to demonstrate responsible, accessible, bilingual AI for legal aid in India."
   },
+  "translate": {
+    "page_title": "Simplify Legal Document",
+    "page_sub": "Paste any complex legal notice, FIR, or agreement to get a simple, 12th-grade level translation.",
+    "placeholder": "Paste your document text here...",
+    "btn": "Simplify Document",
+    "result_title": "Simplified Explanation",
+    "error": "Failed to translate document. Please try again."
+  },
   "common": {
     "loading": "Loading...",
     "error": "Something went wrong. Please try again.",

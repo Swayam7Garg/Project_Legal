@@ -56,19 +56,19 @@ export default function ExplainPage() {
         <div className="page-container">
           {/* Breadcrumb */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
-            <Link href="/situations" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: '#475569', textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>
+            <Link href="/situations" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: '#923c22', textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>
               <ArrowLeft size={14} /> {t('nav.situations')}
             </Link>
-            <span style={{ color: '#94a3b8' }}>/</span>
-            <span style={{ fontSize: 13, color: '#0f172a', fontWeight: 600, fontFamily: hFont }}>{situation.title[lang]}</span>
+            <span style={{ color: '#EAE1DA' }}>/</span>
+            <span style={{ fontSize: 13, color: '#1A1A1A', fontWeight: 600, fontFamily: hFont }}>{situation.title[lang]}</span>
           </div>
 
           {/* Page title */}
-          <h1 style={{ fontSize: 'clamp(22px, 3.5vw, 30px)', fontWeight: 800, color: '#0f172a', marginBottom: 6, fontFamily: hFont }}>{situation.title[lang]}</h1>
-          <p style={{ fontSize: 14, color: '#475569', marginBottom: 28, fontFamily: hFont }}>{situation.description[lang]}</p>
+          <h1 style={{ fontSize: 'clamp(22px, 3.5vw, 30px)', fontWeight: 800, color: '#1A1A1A', marginBottom: 6, fontFamily: hFont }}>{situation.title[lang]}</h1>
+          <p style={{ fontSize: 14, color: '#6A564A', marginBottom: 28, fontFamily: hFont }}>{situation.description[lang]}</p>
 
           {/* Tabs */}
-          <div style={{ borderBottom: '2px solid #e2e8f0', display: 'flex', gap: 4, overflowX: 'auto', marginBottom: 32 }}>
+          <div style={{ borderBottom: '2px solid #EAE1DA', display: 'flex', gap: 4, overflowX: 'auto', marginBottom: 32 }}>
             {tabs.map(tb => (
               <button key={tb.key} onClick={() => setTab(tb.key as any)} className={`tab-btn ${tab === tb.key ? 'active' : ''}`} style={{ fontFamily: hFont }}>{tb.label}</button>
             ))}
@@ -81,15 +81,15 @@ export default function ExplainPage() {
           {tab === 'procedure' && <ProcedureStepper situation={situation} />}
           {tab === 'help' && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, padding: '40px 20px', textAlign: 'center' }}>
-               <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                 <FileText size={28} color="#1a56db" />
+               <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#EAE1DA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                 <FileText size={28} color="#923c22" />
                </div>
-               <h2 style={{ fontSize: 22, fontWeight: 700, color: '#0f172a', fontFamily: hFont }}>{t('explain.get_help_title')}</h2>
+               <h2 style={{ fontSize: 22, fontWeight: 700, color: '#1A1A1A', fontFamily: hFont }}>{t('explain.get_help_title')}</h2>
                <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
-                 <Link href="/lawyers" className="btn-primary">
+                 <Link href="/lawyers" style={{ background: '#923c22', color: 'white', textDecoration: 'none', padding: '10px 20px', borderRadius: 24, fontWeight: 700, fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: hFont }}>
                    <ArrowRight size={16} /> {t('explain.find_lawyer')}
                  </Link>
-                 <Link href={`/generate/${situation.id}`} className="btn-secondary">
+                 <Link href={`/generate/${situation.id}`} style={{ background: 'white', color: '#923c22', border: '1.5px solid #EAE1DA', textDecoration: 'none', padding: '10px 20px', borderRadius: 24, fontWeight: 700, fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: hFont }}>
                    <FileText size={16} /> {t('explain.generate_docs')}
                  </Link>
                </div>
