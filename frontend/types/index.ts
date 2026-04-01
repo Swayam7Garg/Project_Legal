@@ -50,6 +50,8 @@ export interface Lawyer {
   barCouncilId: string;
   availableFor: string[];
   rating: number;
+  lat?: number;
+  lng?: number;
 }
 export interface DocumentFormData {
   name: string;
